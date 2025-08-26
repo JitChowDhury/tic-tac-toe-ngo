@@ -32,5 +32,5 @@
 ### 1️⃣ Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/tictactoe-multiplayer.git
+git clone https://github.com/JitChowDhury/tic-tac-toe-ngo.git
 ```
