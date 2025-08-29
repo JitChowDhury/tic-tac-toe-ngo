@@ -2,7 +2,7 @@
 using Unity.Netcode;
 using UnityEngine;
 
-public class GameVisualManager : MonoBehaviour
+public class GameVisualManager : NetworkBehaviour
 {
     private const float GRID_SIZE = 3.1f;
     [SerializeField] private Transform circlePrefab;
@@ -15,9 +15,17 @@ public class GameVisualManager : MonoBehaviour
 
     private void GameManager_OnClickedGridPosition(object sender, GameManager.OnClickedGridPositionEventArgs e)
     {
+        SpawnObjectRpc(e.x, e.y);
+        Debug.Log("GameManager_OnClickedGridPosition");
+    }
+
+    [Rpc(SendTo.Server)]
+    private void SpawnObjectRpc(int x, int y)
+    {
+        Debug.Log("SpawnObject");
         Transform spawnCrossTransform = Instantiate(crossPrefab);
         spawnCrossTransform.GetComponent<NetworkObject>().Spawn(true);
-        spawnCrossTransform.position = GetWorldPosition(e.x, e.y);
+        spawnCrossTransform.position = GetWorldPosition(x, y);
     }
 
     private Vector2 GetWorldPosition(int x, int y)
