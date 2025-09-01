@@ -15,6 +15,7 @@ public class GameManager : NetworkBehaviour
     public class OnGameWinEventArgs : EventArgs
     {
         public Line line;
+        public PlayerType winPlayerType;
     }
     public class OnClickedGridPositionEventArgs : EventArgs
     {
@@ -192,19 +193,29 @@ public class GameManager : NetworkBehaviour
 
     private void TestWinner()
     {
-
-        foreach (Line line in lineList)
+        for (int i = 0; i < lineList.Count; i++)
         {
+            Line line = lineList[i];
             if (TestWinnerLine(line))
             {
                 Debug.Log("Winner");
                 currentPlayablePlayerType.Value = PlayerType.None;
-                OnGameWin?.Invoke(this, new OnGameWinEventArgs
-                {
-                    line = line
-                });
+                TriggerOnGamewinRpc(i, playerTypeArray[line.centerGridPosition.x, line.centerGridPosition.y]);
+                break;
+
             }
         }
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    private void TriggerOnGamewinRpc(int lineIndex, PlayerType winPlayerType)
+    {
+        Line line = lineList[lineIndex];
+        OnGameWin?.Invoke(this, new OnGameWinEventArgs
+        {
+            line = line,
+            winPlayerType = winPlayerType,
+        });
     }
 
     public PlayerType GetLocalPlayerType()
