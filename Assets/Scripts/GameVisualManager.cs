@@ -59,30 +59,32 @@ public class GameVisualManager : NetworkBehaviour
 
     private void GameManager_OnClickedGridPosition(object sender, GameManager.OnClickedGridPositionEventArgs e)
     {
-        SpawnObjectRpc(e.x, e.y, e.playerType);
-        Debug.Log("GameManager_OnClickedGridPosition");
+        if (IsServer)
+        {
+            // Server spawns directly
+            SpawnVisual(e.x, e.y, e.playerType);
+        }
+        else
+        {
+            // Clients request the server to spawn
+            SpawnRequestRpc(e.x, e.y, e.playerType);
+        }
     }
 
     [Rpc(SendTo.Server)]
-    private void SpawnObjectRpc(int x, int y, GameManager.PlayerType playerType)
+    private void SpawnRequestRpc(int x, int y, GameManager.PlayerType playerType)
     {
-        Debug.Log("SpawnObject");
-        Transform prefab;
-        switch (playerType)
-        {
-            default:
-            case GameManager.PlayerType.Cross:
-                prefab = crossPrefab;
-                break;
-            case GameManager.PlayerType.Circle:
-                prefab = circlePrefab;
-                break;
-        }
+        SpawnVisual(x, y, playerType); // Server spawns → auto syncs
+    }
 
-        Transform spawnCrossTransform = Instantiate(prefab, GetWorldPosition(x, y), Quaternion.identity);
-        spawnCrossTransform.GetComponent<NetworkObject>().Spawn(true);
+    private void SpawnVisual(int x, int y, GameManager.PlayerType playerType)
+    {
+        Transform prefab = playerType == GameManager.PlayerType.Cross ? crossPrefab : circlePrefab;
 
-        visualGameObjectList.Add(spawnCrossTransform.gameObject);
+        Transform obj = Instantiate(prefab, GetWorldPosition(x, y), Quaternion.identity);
+        obj.GetComponent<NetworkObject>().Spawn(true);
+
+        visualGameObjectList.Add(obj.gameObject);
     }
 
     private Vector2 GetWorldPosition(int x, int y)
