@@ -19,6 +19,8 @@ public class GameOverUI : MonoBehaviour
             GameManager.Instance.RematchRpc();
         });
 
+
+
         quitButton.onClick.AddListener(() =>
         {
             Application.Quit();

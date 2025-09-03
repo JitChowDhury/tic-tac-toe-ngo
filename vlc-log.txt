@@ -1,0 +1,20 @@
+﻿-- logger module started --
+main: one instance mode ENABLED
+main: Running vlc with the default interface. Use 'cvlc' to use vlc without interface.
+mp4: Fragment sequence discontinuity detected 1 != 0
+avcodec: Using D3D11VA (NVIDIA GeForce GTX 1660 SUPER, vendor 10de(NVIDIA), device 21c4, revision a1) for hardware decoding
+direct3d11 error: SetThumbNailClip failed: 0x800706f4
+access error: HTTP connection failure
+http error: cannot connect to mb.videolan.org:80
+main error: no suitable access module for `http://mb.videolan.org/ws/2/recording/?query=artist%3A%22SUNARI%20VFX%22%20AND%20recording%3A%22Free%20Background%2C%20SWEET%20DREAMS%20COLOUR%20FULL%20%2C%20GRAPHICS%2C%20ANIMATED%20%20BACKGROUND%2C%20FREE%20DOWNLODE%2C%20HD%22'
+access error: HTTP connection failure
+http error: cannot connect to images.google.com:80
+main error: no suitable access module for `http://images.google.com/images?q=SUNARI%20VFX%20Free%20Background%2C%20SWEET%20DREAMS%20COLOUR%20FULL%20%2C%20GRAPHICS%2C%20ANIMATED%20%20BACKGROUND%2C%20FREE%20DOWNLODE%2C%20HD%20cover'
+-- logger module stopped --
+﻿-- logger module started --
+main: one instance mode ENABLED
+main: Running vlc with the default interface. Use 'cvlc' to use vlc without interface.
+mp4: Fragment sequence discontinuity detected 1 != 0
+avcodec: Using D3D11VA (NVIDIA GeForce GTX 1660 SUPER, vendor 10de(NVIDIA), device 21c4, revision a1) for hardware decoding
+direct3d11 error: SetThumbNailClip failed: 0x800706f4
+-- logger module stopped --
